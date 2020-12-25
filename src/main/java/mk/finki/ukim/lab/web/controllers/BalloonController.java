@@ -48,14 +48,13 @@ public class BalloonController {
         return "selectBalloonSize";
     }
 
-    @GetMapping("/edit-form/{id}") //kopce edit
+    @GetMapping("/edit-form/{id}")
     public String getEditBalloonPage(@PathVariable Long id, Model model) {
         if (balloonService.findById(id).isPresent()) {
             Balloon b = this.balloonService.findById(id).get();
             model.addAttribute("balloon", b);
             model.addAttribute("manufacturers", manufacturerService.findAll());
             return "add-balloon";
-
         } else {
             return "redirect:/balloons?error=BalloonWithThisIdNotFound";
         }
@@ -66,7 +65,8 @@ public class BalloonController {
         this.balloonService.save(name, desc, manufacturer);
         return "redirect:/balloons";
     }
-    @GetMapping("/add-form") // add kopce
+
+    @GetMapping("/add-form")
     public String getAddBalloonPage(Model model){
         model.addAttribute("manufacturers", manufacturerService.findAll());
         return "add-balloon";

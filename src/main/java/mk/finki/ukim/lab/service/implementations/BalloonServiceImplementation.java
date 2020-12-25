@@ -43,6 +43,5 @@ public class BalloonServiceImplementation implements BalloonService {
     @Override
     public void delete(Long id) {
         balloonRepository.deleteById(id);
-
     }
 }

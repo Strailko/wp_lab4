@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -31,21 +32,22 @@
         </thead>
         <tbody>
         <tr th:each="b : ${balloons}">
-
+            <div class="balloon-items">
             <td>
                 <input type="radio" name="id" th:value="${b.getId()}"/>
             </td>
             <td th:text="${b.getName()}"></td>
             <td th:text="${b.getDescription()}"></td>
             <td th:text="${b.getManufacturer() !=null} ? ${b.getManufacturer().getName()} :  'None'"></td>
-
+            </div>
         </tr>
         </tbody>
     </table>
-    <button type="submit">Submit</button>
+    <button type="submit" class="submit-order" sec:authorize="isAuthenticated()">Submit</button>
 </form>
-
-<a href="/balloons/add-form">Add new balloon</a>
+<div class="add-new-balloon" sec:authorize="hasRole('ROLE_ADMIN')">
+    <a href="/balloons/add-form" >Add new balloon</a>
+</div>
 <h2>Edit/delete balloon choices here</h2>
 
 <table>
@@ -61,11 +63,11 @@
         <td th:text="${b.getName()}"></td>
         <td th:text="${b.getDescription()}"></td>
         <td th:text="${b.getManufacturer() !=null} ? ${b.getManufacturer().getName()} :  'None'"></td>
-        <th>
+        <th class="delete-balloon" sec:authorize="hasRole('ROLE_ADMIN')">
             <form th:method="delete" th:action="@{'/balloons/delete/{id}' (id=${b.getId()}) }">
                 <button name="delete-button" type="submit">Delete</button>
             </form>
-        <th>
+        <th class="edit-balloon" sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{'/balloons/edit-form/{id}' (id=${b.getId()})}">Edit</a>
         </th>
 

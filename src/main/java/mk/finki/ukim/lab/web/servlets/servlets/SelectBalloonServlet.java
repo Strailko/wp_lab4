@@ -22,6 +22,7 @@ public class SelectBalloonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("selectBalloonSize.html", context, resp.getWriter());
     }
 
@@ -33,10 +34,11 @@ public class SelectBalloonServlet extends HttpServlet {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("hasError", true);
             context.setVariable("error", "Please select balloon size");
+            resp.setContentType("text/html;charset=UTF-8");
             templateEngine.process("selectBalloonSize.html", context, resp.getWriter());
         }
 
         req.getSession().setAttribute("size", size);
-        resp.sendRedirect("/BalloonOrder.do");
+        resp.sendRedirect("/BalloonOrder");
     }
 }

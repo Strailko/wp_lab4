@@ -27,6 +27,7 @@ public class BalloonListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("balloons", balloonService.listAll());
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("listBalloons.html", context, resp.getWriter());
     }
 
@@ -39,6 +40,7 @@ public class BalloonListServlet extends HttpServlet {
             context.setVariable("balloons", balloonService.listAll());
             context.setVariable("hasError", true );
             context.setVariable("error", "Please select a balloon.");
+            resp.setContentType("text/html;charset=UTF-8");
             templateEngine.process("listBalloons.html", context, resp.getWriter());
             resp.sendRedirect("/balloon");
         }

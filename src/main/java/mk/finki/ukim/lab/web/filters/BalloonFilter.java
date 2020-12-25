@@ -19,8 +19,14 @@ public class BalloonFilter implements Filter {
         User user=(User)request.getSession().getAttribute("user");
 
         String pateka=request.getServletPath();
-        if(!pateka.equals("/login") && user==null){
-            response.sendRedirect("/login");
+//        if(pateka.equals("/balloons/add-form") || pateka.contains("/balloons/edit-form") || pateka.equals("") || pateka.equals("/") && user==null){
+//            response.sendRedirect("/balloons");
+//        }
+        if(pateka.equals("") || pateka.equals("/")) {
+            response.sendRedirect("/balloons");
+        }
+        else if(pateka.equals("/login") && user!=null) {
+            response.sendRedirect("/balloons");
         }
         else{
             chain.doFilter(req, resp);

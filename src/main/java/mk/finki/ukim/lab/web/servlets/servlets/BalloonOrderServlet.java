@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "balloon-order-servlet", urlPatterns = "/BalloonOrder.do")
+@WebServlet(name = "balloon-order-servlet", urlPatterns = "/BalloonOrder")
 public class BalloonOrderServlet extends HttpServlet {
-    private SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine templateEngine;
     private final OrderService orderService;
 
     public BalloonOrderServlet(SpringTemplateEngine templateEngine, OrderService orderService) {
@@ -25,6 +25,7 @@ public class BalloonOrderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context =  new WebContext(req, resp, req.getServletContext());
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("deliveryInfo.html", context, resp.getWriter());
     }
 
@@ -37,6 +38,7 @@ public class BalloonOrderServlet extends HttpServlet {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("hasError", true);
             context.setVariable("error", "Please enter your information");
+            resp.setContentType("text/html;charset=UTF-8");
             templateEngine.process("deliveryInfo.html", context, resp.getWriter());
         }
 

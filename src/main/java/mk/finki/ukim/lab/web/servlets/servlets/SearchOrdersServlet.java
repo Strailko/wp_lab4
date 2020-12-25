@@ -27,6 +27,7 @@ public class SearchOrdersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("userOrders.html", context, resp.getWriter());
     }
 
@@ -39,6 +40,8 @@ public class SearchOrdersServlet extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("orders", clientorders);
         context.setVariable("flag", true);
+
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("userOrders.html", context, resp.getWriter());
     }
 }

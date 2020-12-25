@@ -23,6 +23,7 @@ public class ConfirmationInfoServlet extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("clientAgent", req.getHeader("User-Agent"));
         context.setVariable("remoteAddress", req.getRemoteAddr());
+        resp.setContentType("text/html;charset=UTF-8");
         templateEngine.process("confirmationInfo.html", context, resp.getWriter());
     }
 
